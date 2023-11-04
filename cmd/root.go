@@ -5,6 +5,7 @@ import (
 	"github.com/spf13/cobra"
 	"os"
 	"rscheduler-cli/cmd/infoCMD"
+	"rscheduler-cli/cmd/processorCMD"
 )
 
 var rootCmd = &cobra.Command{
@@ -23,5 +24,8 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.AddCommand(infoCMD.InfoCmd)
+	rootCmd.AddCommand(
+		infoCMD.InfoCmd,
+		processorCMD.ProcessorCMD,
+	)
 }
