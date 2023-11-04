@@ -6,6 +6,7 @@ import (
 	"os"
 	"rscheduler-cli/cmd/infoCMD"
 	"rscheduler-cli/cmd/processorCMD"
+	"rscheduler-cli/cmd/taskCMD"
 )
 
 var rootCmd = &cobra.Command{
@@ -27,5 +28,6 @@ func init() {
 	rootCmd.AddCommand(
 		infoCMD.InfoCmd,
 		processorCMD.ProcessorCMD,
+		taskCMD.TaskCMD,
 	)
 }
