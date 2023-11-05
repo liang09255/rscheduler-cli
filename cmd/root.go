@@ -7,6 +7,7 @@ import (
 	"rscheduler-cli/cmd/infoCMD"
 	"rscheduler-cli/cmd/processorCMD"
 	"rscheduler-cli/cmd/rmpCMD"
+	"rscheduler-cli/cmd/rmtCMD"
 	"rscheduler-cli/cmd/taskCMD"
 )
 
@@ -31,5 +32,6 @@ func init() {
 		processorCMD.ProcessorCMD,
 		taskCMD.TaskCMD,
 		rmpCMD.RmpCMD,
+		rmtCMD.RmtCMD,
 	)
 }
