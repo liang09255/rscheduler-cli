@@ -12,32 +12,43 @@ import (
 var InfoCmd = &cobra.Command{
 	Use:   "info",
 	Short: "rscheduler info",
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
 		var str string
+		var err error
 		if infoVersionFlag {
-			str = getInfoVersion()
+			str, err = getInfoVersion()
+			if err != nil {
+				return err
+			}
 		} else {
-			str = getInfo()
+			str, err = getInfo()
+			if err != nil {
+				return err
+			}
 		}
 		fmt.Println(str)
+		return nil
 	},
 }
 
-func getBaseInfo() model.BaseInfo {
+func getBaseInfo() (*model.BaseInfo, error) {
 	request := gorequest.New()
 	_, body, errs := request.Get(config.Config.BaseURL + "/base/info").End()
 	if errs != nil {
-		fmt.Println("get version failed, err: " + errs[0].Error())
+		return nil, errs[0]
 	}
 	var baseInfoResp model.BaseInfoResp
 	err := json.Unmarshal([]byte(body), &baseInfoResp)
 	if err != nil {
-		fmt.Println("unmarshal version failed, err: " + err.Error())
+		return nil, err
 	}
-	return baseInfoResp.BaseInfo
+	return &baseInfoResp.BaseInfo, nil
 }
 
-func getInfo() string {
-	bi := getBaseInfo()
-	return fmt.Sprintf("%+v", bi)
+func getInfo() (string, error) {
+	bi, err := getBaseInfo()
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("%+v", bi), nil
 }

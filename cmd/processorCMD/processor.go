@@ -2,7 +2,6 @@ package processorCMD
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/liang09255/lutils/conv"
 	"github.com/olekukonko/tablewriter"
 	"github.com/parnurzeal/gorequest"
@@ -16,13 +15,13 @@ import (
 var ProcessorCMD = &cobra.Command{
 	Use:   "processor",
 	Short: "processor info",
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
 		table, err := getProcessorInfoTable()
 		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
+			return err
 		}
 		table.Render()
+		return nil
 	},
 }
 
