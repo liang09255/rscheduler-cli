@@ -16,6 +16,7 @@ var rootCmd = &cobra.Command{
 	Short: "rscheduler cli",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Hello rscheduler!")
+		fmt.Println("Try using --help for more help information")
 	},
 }
 
